@@ -66,6 +66,15 @@ export class RankingListPage implements OnInit {
         const profile_name = profile['LeetCode Profile Link'].split('/')[3];
 
         try {
+          if (
+            profile_name === 'profile' ||
+            profile_name === 'undefined' ||
+            profile_name === 'problemset' ||
+            profile_name === 'list'
+          ) {
+            throw new Error('Invalid profile name');
+          }
+
           const data = await this.networkService.getProfileData(profile_name);
           data['roll_no'] = profile['Roll No'];
           data['programme'] = profile['Programme'];
@@ -120,5 +129,9 @@ export class RankingListPage implements OnInit {
     } else {
       console.log('No LeetCode links found in storage');
     }
+  }
+
+  syncCSVData() {
+    this.database.storeDataToFirebase();
   }
 }

@@ -76,8 +76,11 @@ export class DatabaseService {
   private async storeData(students: Student[]) {
     const links: Student[] = [];
     for (const student of students) {
-      if (student['LeetCode Profile Link'] == 'https://leetcode.com/profile/account/') {
-      console.log("Invalid LeetCode Profile Link")
+      if (
+        student['LeetCode Profile Link'] ==
+        'https://leetcode.com/profile/account/'
+      ) {
+        console.log('Invalid LeetCode Profile Link');
       }
 
       if (
@@ -102,5 +105,10 @@ export class DatabaseService {
     const links =
       ((await this.localForage.getItem(this.storeName)) as Student[]) || [];
     return links;
+  }
+
+  async storeDataToFirebase() {
+    const students = await this.getAllLeetCodeLinks();
+    this.firebaseService.saveCSVDATA(students);
   }
 }

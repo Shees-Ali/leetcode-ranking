@@ -11,27 +11,27 @@
           (change)="import($event)"
           multiple
         />
-        <button
-          pButton
-          label="Sync CSV Data"
-          class="p-button-help mb-2"
-          icon="pi pi-filter-slash"
-          (click)="sync()"
-        ></button>
-        <button
+        <!-- <button
           pButton
           label="Import Data"
-          class="p-button-primary mb-2 ml-2"
+          class="p-button-primary mb-2"
           icon="pi pi-sync"
           (click)="openFileUpload()"
         ></button>
         <button
           pButton
-          label="Sync CSV Data to Firebase"
-          class="p-button-primary mb-2 ml-2"
-          icon="pi pi-sync"
-          (click)="SyncCSVData()"
+          label="Sync Data"
+          class="p-button-help mb-2 ml-2"
+          icon="pi pi-filter-slash"
+          (click)="sync()"
         ></button>
+        <button
+          pButton
+          label="Sync CSV Data to Firebase"
+          class="p-button-warning mb-2 ml-2"
+          icon="pi pi-sync"
+          (click)="syncCSVData()"
+        ></button> -->
         <h1>Leet Code Ranking</h1>
         <p-table
           #dt1
@@ -44,6 +44,8 @@
           [paginator]="true"
           [globalFilterFields]="['username','ranking','batch','rollNo','programme']"
           responsiveLayout="scroll"
+          sortField="ranking" 
+          [sortOrder]="1"
         >
           <ng-template pTemplate="caption">
             <div class="flex justify-content-between flex-column sm:flex-row">

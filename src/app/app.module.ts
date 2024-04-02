@@ -7,6 +7,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import {
+  provideAnalytics,
+  getAnalytics,
+  UserTrackingService,
+  ScreenTrackingService,
+} from '@angular/fire/analytics';
 import { environment } from './environments/environment';
 
 @NgModule({
@@ -18,8 +25,10 @@ import { environment } from './environments/environment';
     BrowserAnimationsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
+    provideAnalytics(() => getAnalytics()),
+    provideAuth(() => getAuth()),
   ],
-  providers: [],
+  providers: [ScreenTrackingService, UserTrackingService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
