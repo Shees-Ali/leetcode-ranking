@@ -111,4 +111,12 @@ export class DatabaseService {
     const students = await this.getAllLeetCodeLinks();
     this.firebaseService.saveCSVDATA(students);
   }
+
+  async setUpdateTime() {
+    this.localForage.setItem('lastUpdated', new Date());
+  }
+
+  async getUpdateTime() {
+    return this.localForage.getItem('lastUpdated');
+  }
 }

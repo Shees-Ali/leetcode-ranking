@@ -22,7 +22,25 @@ export class RankingListPage implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getProfiles();
+    this.init();
+  }
+
+  async init() {
+    const val: any = await this.database.getUpdateTime();
+    console.log('last updated time', val);
+    const lastUpdated = new Date(val).getTime();
+    if (lastUpdated) {
+      const currentTime = new Date().getTime();
+      const diff = currentTime - lastUpdated;
+      const twelveHoursInMilliseconds = 12 * 60 * 60 * 1000;
+      if (diff > twelveHoursInMilliseconds) {
+        this.syncFromDB();
+      } else {
+        this.getProfiles();
+      }
+    } else {
+      this.syncFromDB();
+    }
   }
 
   async getProfiles() {
@@ -45,6 +63,7 @@ export class RankingListPage implements OnInit {
       (profile) => profile['username'] !== 'undefined'
     );
     await this.database.storeProfiles(profiles);
+    await this.database.setUpdateTime();
     this.profiles = profiles as any[];
     this.isLoading = false;
   }
