@@ -27,7 +27,6 @@ export class RankingListPage implements OnInit {
 
   async init() {
     const val: any = await this.database.getUpdateTime();
-    console.log('last updated time', val);
     const lastUpdated = new Date(val).getTime();
     if (lastUpdated) {
       const currentTime = new Date().getTime();
